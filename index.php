@@ -18,11 +18,11 @@
         <input type="text" name="2">
         <p>Q3. Black holes are areas in space with intense _______.</p>
         <input type="text" name="3">
-        <p>Q4. The Universe is static. True/False</p>
+        <p>Q4. The Universe remains a constant size. True/False</p>
         <input type="text" name="4">
         <p>Q5. Whats the root word for Earth? (Old English or German)</p>
         <input type="text" name="5">
-        <p>Q6. The Big Bang was the start of the universe. True/False</p>
+        <p>Q6. The Big Bang was the start of the universe. (as far as we know) True/False</p>
         <input type="text" name="6">
         <br>
         <button type="submit">Submit</button>
@@ -61,10 +61,10 @@ if ($answersLength > 0) {
     echo "<p>Your score is: {$score} / {$highestPossible} ({$finalScore}%)</p>";
 
     $randInd = rand(0, 2);
-    if ($finalScore === $highestPossible) {
-        echo "<p>{$goodResponses[$randInd]}</p>";
+    if ($finalScore >= $highestPossible - 1) {
+        echo "<p class='correct'>{$goodResponses[$randInd]}</p>";
     } else {
-        echo "<p>{$badResponses[$randInd]}</p>";
+        echo "<p class='incorrect'>{$badResponses[$randInd]}</p>";
     }
 }
 ?>
