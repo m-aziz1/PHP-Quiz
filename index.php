@@ -27,44 +27,51 @@
         <br>
         <button type="submit">Submit</button>
     </form>
-
-
 </body>
 
 </html>
 
 <?php
 $answers = [
-    ["romans", "roman empire"], ["jupiter"], ["gravity"], ["false"], ["eorthe", "erde"], ["true"],
+  ["romans", "roman empire"],
+  ["jupiter"],
+  ["gravity"],
+  ["false"],
+  ["eorthe", "erde"],
+  ["true"],
 ];
 
 $badResponses = ["You need to study", "Get good", "Try harder next time"];
 $goodResponses = ["You are the goat", "Peak awesomeness", "Good job"];
 
-$answersLength = count($_GET);
+// Returns 6 when Submitted
+$questionsLength = count($_GET);
 
-if ($answersLength > 0) {
-    $score = 0;
-    $highestPossible = $answersLength;
+// If Submit Button Clicked
+if ($questionsLength > 0) {
+  $score = 0;
+  $highestPossible = $questionsLength;
 
-    for ($i = 1; $i <= $answersLength; $i++) {
-        if (in_array(strtolower($_GET[$i]), $answers[$i - 1])) {
-            echo "<p class='correct'>Q{$i} correct</p>";
-            $score++;
-        } else {
-            $corrections = implode(" or ", $answers[$i - 1]);
-            echo "<p class='incorrect'>Q{$i} incorrect, the answer is: {$corrections}</p>";
-        }
-    }
-
-    $finalScore = round($score / $highestPossible * 100);
-    echo "<p>Your score is: {$score} / {$highestPossible} ({$finalScore}%)</p>";
-
-    $randInd = rand(0, 2);
-    if ($finalScore >= $highestPossible - 1) {
-        echo "<p class='correct'>{$goodResponses[$randInd]}</p>";
+  for ($i = 1; $i <= $questionsLength; $i++) {
+    if (in_array(strtolower($_GET[$i]), $answers[$i - 1])) {
+      echo "<p class='correct'>Q{$i} correct</p>";
+      $score++;
     } else {
-        echo "<p class='incorrect'>{$badResponses[$randInd]}</p>";
+      $corrections = implode(" or ", $answers[$i - 1]);
+      echo "<p class='incorrect'>Q{$i} incorrect, the answer is: {$corrections}</p>";
     }
+  }
+
+  // Calculate and Output Final Score
+  $finalScore = round(($score / $highestPossible) * 100);
+  echo "<p>Your score is: {$score} / {$highestPossible} ({$finalScore}%)</p>";
+
+  // Display Random response
+  $randInd = rand(0, 2);
+  if ($finalScore >= $highestPossible - 1) {
+    echo "<p class='correct'>{$goodResponses[$randInd]}</p>";
+  } else {
+    echo "<p class='incorrect'>{$badResponses[$randInd]}</p>";
+  }
 }
 ?>
